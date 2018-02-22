@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphs", "GraphPractice\Graphs.csproj", "{4E309441-4E79-4580-9A3E-289F3C761F5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nodes", "Nodes\Nodes.csproj", "{EBE37972-DBFE-4DAB-AC89-C3B32A84B3A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trees", "Trees\Trees.csproj", "{85B0212E-7569-40AF-BB73-642F8C4578C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphsTests", "GraphsTests\GraphsTests.csproj", "{487756C5-0352-464D-AB70-E8CDA58843DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NodesTests", "NodesTests\NodesTests.csproj", "{2837588A-FBDE-4391-99DB-2AFF67B35272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorts", "Sorts\Sorts.csproj", "{B5FCDB9B-6187-4370-9D55-177B5CD895BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vertices", "Vertices\Vertices.csproj", "{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E309441-4E79-4580-9A3E-289F3C761F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E309441-4E79-4580-9A3E-289F3C761F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E309441-4E79-4580-9A3E-289F3C761F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E309441-4E79-4580-9A3E-289F3C761F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE37972-DBFE-4DAB-AC89-C3B32A84B3A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE37972-DBFE-4DAB-AC89-C3B32A84B3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE37972-DBFE-4DAB-AC89-C3B32A84B3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE37972-DBFE-4DAB-AC89-C3B32A84B3A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85B0212E-7569-40AF-BB73-642F8C4578C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85B0212E-7569-40AF-BB73-642F8C4578C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85B0212E-7569-40AF-BB73-642F8C4578C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85B0212E-7569-40AF-BB73-642F8C4578C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487756C5-0352-464D-AB70-E8CDA58843DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487756C5-0352-464D-AB70-E8CDA58843DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487756C5-0352-464D-AB70-E8CDA58843DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487756C5-0352-464D-AB70-E8CDA58843DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2837588A-FBDE-4391-99DB-2AFF67B35272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2837588A-FBDE-4391-99DB-2AFF67B35272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2837588A-FBDE-4391-99DB-2AFF67B35272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2837588A-FBDE-4391-99DB-2AFF67B35272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5FCDB9B-6187-4370-9D55-177B5CD895BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5FCDB9B-6187-4370-9D55-177B5CD895BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5FCDB9B-6187-4370-9D55-177B5CD895BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5FCDB9B-6187-4370-9D55-177B5CD895BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8421A41B-E328-4445-AD5B-73C5A1E6A6E2}
+	EndGlobalSection
+EndGlobal

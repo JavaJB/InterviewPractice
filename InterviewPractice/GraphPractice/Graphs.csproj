@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nodes\Nodes.csproj" />
+    <ProjectReference Include="..\Vertices\Vertices.csproj" />
+  </ItemGroup>
+
+</Project>

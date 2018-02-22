@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NodesTests", "NodesTests\No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorts", "Sorts\Sorts.csproj", "{B5FCDB9B-6187-4370-9D55-177B5CD895BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vertices", "Vertices\Vertices.csproj", "{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edges", "Vertices\Edges.csproj", "{BECDE089-CAD7-4AD6-9958-0EB104B8E66B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

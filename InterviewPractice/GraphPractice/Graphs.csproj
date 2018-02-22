@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nodes\Nodes.csproj" />
-    <ProjectReference Include="..\Vertices\Vertices.csproj" />
+    <ProjectReference Include="..\Vertices\Edges.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,12 +11,20 @@ namespace NodePractice
     /// </summary>
     /// <typeparam name="T1"></typeparam>
     /// <typeparam name="T2"></typeparam>
-    public class Node<T> where T : IComparable<T> //TODO: Make Node inherit IComparable<T>
+    public class Node<T> : IComparable<T> where T : IComparable<T>
     {
         public T VALUE { get; private set; }
         public HashSet<Node<T>> NEIGHBORS { get; private set; }
         public bool VISITED { get; set; } // any possible security issues from allowing public setting?
 
+        /// <summary>
+        /// no parameter constructor
+        /// </summary>
+        public Node()
+        {
+            NEIGHBORS = new HashSet<Node<T>>();
+            VISITED = false;
+        }
         /// <summary>
         /// Basic constructor takes in a generic value to define this node.
         /// For the case when you simply want to create a node with a value.
@@ -25,9 +33,8 @@ namespace NodePractice
         public Node(T val)
         {
             VALUE = val;
-            //NEIGHBORSWITHCONNECTIONS = new Dictionary<Node<T1, T2>, Vertex<T2>>();
             NEIGHBORS = new HashSet<Node<T>>();
-            //CONNECTIONS = new HashSet<Vertex<T2>>(){ new Vertex<T2>(vertex) };
+            VISITED = false;
         }
 
         /// <summary>
@@ -45,6 +52,7 @@ namespace NodePractice
             {
                 NEIGHBORS.Add(neighs[i]);
             }
+            VISITED = false;
         }
 
         /// <summary>
@@ -59,6 +67,7 @@ namespace NodePractice
             {
                 NEIGHBORS.Add(node);
             }
+            VISITED = false;
         }
 
         /// <summary>
@@ -120,6 +129,17 @@ namespace NodePractice
         public void RemoveAllNeighbors()
         {
             NEIGHBORS = new HashSet<Node<T>>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(T other)
+        {
+            //TODO: Make Node inherit IComparable<T>
+            throw new NotImplementedException();
         }
     }
 

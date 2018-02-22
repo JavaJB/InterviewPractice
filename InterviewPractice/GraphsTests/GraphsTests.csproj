@@ -63,6 +63,10 @@
       <Project>{ebe37972-dbfe-4dab-ac89-c3b32a84b3a9}</Project>
       <Name>Nodes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vertices\Edges.csproj">
+      <Project>{becde089-cad7-4ad6-9958-0eb104b8e66b}</Project>
+      <Name>Edges</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

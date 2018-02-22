@@ -11,7 +11,7 @@ namespace GraphsTests
         [TestMethod]
         public void TestMethod1()
         {
-            Node<string, int> node = new Node<string, int>("7");
+            Node<string> node = new Node<string>("7");
             Graph<string, int> graph = new Graph<string, int>();
         }
     }

@@ -6,14 +6,26 @@ using System.Linq;
 
 namespace Sorts
 {
-    public class MySorts <T> where T : IComparable<T>
+    public class MySorts <T> where T : IComparable<T>, IEquatable<T>
     {
+        public Type type { get; }
+        public Collection<T> collection { get; private set; }
         /// <summary>
         /// Obligatory constructor. ideas for interesting features???
         /// </summary>
         public MySorts()
         {
+            type = typeof(T);
+            collection = new Collection<T>();
+        }
 
+        public MySorts(IEnumerable<T> enumerable)
+        {
+            collection = new Collection<T>();
+            foreach(T item in enumerable)
+            {
+                collection.Add(item);
+            }
         }
 
         /// <summary>

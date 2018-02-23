@@ -12,29 +12,29 @@ namespace GraphPractice
     /// </summary>
     /// <typeparam name="T1">Node-type</typeparam>
     /// <typeparam name="T2">Edge-type</typeparam>
-    public class Graph <T1, T2> where T1 : IComparable<T1> where T2 : IComparable<T2> //TODO: Make Graph inherit IComparable<T>
+    public class Graph <T1, T2> where T1 : IComparable<T1>, IEquatable<T1> where T2 : IComparable<T2>, IEquatable<T2>
     {
-        public Dictionary<Node<T1>, HashSet<Node<T1>>> adjacencyListNodes { get; private set; }
-        public Dictionary<Node<T1>, HashSet<Edge<T2, T1>>> adjacencyListEdges { get; private set; }
-        public HashSet<Node<T1>> nodesInGraph = new HashSet<Node<T1>>(); //TODO: change graph implementation to include nodesInGraph hashset
+        public Dictionary<MyNode<T1>, HashSet<MyNode<T1>>> adjacencyListNodes { get; private set; }
+        public Dictionary<MyNode<T1>, HashSet<Edge<T2, T1>>> adjacencyListEdges { get; private set; }
+        public HashSet<MyNode<T1>> nodesInGraph = new HashSet<MyNode<T1>>(); //TODO: change graph implementation to include nodesInGraph hashset
         
         /// <summary>
         /// No argument constructor of a Graph, creates a Graph with a default size of 10 nodes
         /// </summary>
         public Graph()
         {
-            adjacencyListNodes = new Dictionary<Node<T1>, HashSet<Node<T1>>>();
-            adjacencyListEdges = new Dictionary<Node<T1>, HashSet<Edge<T2, T1>>>();
+            adjacencyListNodes = new Dictionary<MyNode<T1>, HashSet<MyNode<T1>>>();
+            adjacencyListEdges = new Dictionary<MyNode<T1>, HashSet<Edge<T2, T1>>>();
         }
 
         /// <summary>
         /// Creates a graph containing only the provided node
         /// </summary>
         /// <param name="baseNode"></param>
-        public Graph(Node<T1> baseNode)
+        public Graph(MyNode<T1> baseNode)
         {
-            adjacencyListNodes = new Dictionary<Node<T1>, HashSet<Node<T1>>>();
-            adjacencyListEdges = new Dictionary<Node<T1>, HashSet<Edge<T2, T1>>>();
+            adjacencyListNodes = new Dictionary<MyNode<T1>, HashSet<MyNode<T1>>>();
+            adjacencyListEdges = new Dictionary<MyNode<T1>, HashSet<Edge<T2, T1>>>();
             adjacencyListNodes.Add(baseNode, baseNode.NEIGHBORS);
         }
 
@@ -43,13 +43,13 @@ namespace GraphPractice
         /// Vertices are created from the node adjacency list.
         /// </summary>
         /// <param name="nodes"></param>
-        public Graph(Dictionary<Node<T1>, HashSet<Node<T1>>> adjacentNodes)
+        public Graph(Dictionary<MyNode<T1>, HashSet<MyNode<T1>>> adjacentNodes)
         {
             adjacencyListNodes = adjacentNodes;
-            adjacencyListEdges = new Dictionary<Node<T1>, HashSet<Edge<T2, T1>>>();
-            foreach(Node<T1> node in adjacencyListNodes.Keys)
+            adjacencyListEdges = new Dictionary<MyNode<T1>, HashSet<Edge<T2, T1>>>();
+            foreach(MyNode<T1> node in adjacencyListNodes.Keys)
             {
-                foreach(Node<T1> adjNode in node.NEIGHBORS)
+                foreach(MyNode<T1> adjNode in node.NEIGHBORS)
                 {
                     Edge<T2, T1> vert = new Edge<T2, T1>(node, adjNode);
                     adjacencyListEdges[node].Add(vert);
@@ -63,7 +63,7 @@ namespace GraphPractice
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public HashSet<Node<T1>> GetNeighbors(Node<T1> node)
+        public HashSet<MyNode<T1>> GetNeighbors(MyNode<T1> node)
         {
             return adjacencyListNodes[node];
         }
@@ -73,7 +73,7 @@ namespace GraphPractice
         /// </summary>
         /// <param name="node"></param>
         /// <returns>value of supplied node</returns>
-        public T1 GetValue(Node<T1> node)
+        public T1 GetValue(MyNode<T1> node)
         {
             return node.VALUE;
         }
@@ -83,17 +83,20 @@ namespace GraphPractice
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public bool Add(Node<T1> node)
+        public bool AddNode(MyNode<T1> node)
         {
             if (!adjacencyListNodes.ContainsKey(node))
             {
                 adjacencyListNodes.Add(node, node.NEIGHBORS);
-                foreach(Node<T1> _node in node.NEIGHBORS)
+                if(node.NEIGHBORS.Count > 0)
                 {
-                    Edge<T2, T1> newVert1 = new Edge<T2, T1>(node, _node);
-                    Edge<T2, T1> newVert2 = new Edge<T2, T1>(_node, node);
-                    adjacencyListEdges[node].Add(newVert1);
-                    adjacencyListEdges[_node].Add(newVert2);
+                    foreach (MyNode<T1> _node in node.NEIGHBORS)
+                    {
+                        Edge<T2, T1> newVert1 = new Edge<T2, T1>(node, _node);
+                        Edge<T2, T1> newVert2 = new Edge<T2, T1>(_node, node);
+                        adjacencyListEdges[node].Add(newVert1);
+                        adjacencyListEdges[_node].Add(newVert2);
+                    }
                 }
                 return true;
             }
@@ -108,25 +111,28 @@ namespace GraphPractice
         /// </summary>
         /// <param name="node"></param>
         /// <returns>True if the node existed in the graph and was subsequently deleted, false otherwise</returns>
-        public bool Delete(Node<T1> node)
+        public bool DeleteNode(MyNode<T1> node)
         {
             if (adjacencyListNodes.ContainsKey(node))
             {
                 bool allRemovesResolvedPositively = true;
-                foreach(Node<T1> adjNode in node.NEIGHBORS)
+                if(node.NEIGHBORS.Count > 0)
                 {
-                    foreach(Edge<T2, T1> vertToBeRemoved in FindAllVerticesBetweenNodes(adjNode, node))
+                    foreach (MyNode<T1> adjNode in node.NEIGHBORS)
                     {
-                        bool result1 = adjacencyListEdges[adjNode].Remove(vertToBeRemoved); //remove all verts from adj nodes to node
-                        if(!result1) { allRemovesResolvedPositively = false; }
+                        foreach (Edge<T2, T1> vertToBeRemoved in FindAllEdgesBetweenNodes(adjNode, node))
+                        {
+                            bool result1 = adjacencyListEdges[adjNode].Remove(vertToBeRemoved); //remove all verts from adj nodes to node
+                            if (!result1) { allRemovesResolvedPositively = false; }
+                        }
+                        bool result2 = adjacencyListNodes[adjNode].Remove(node); //remove node from all adjnodes adjlist
+                        if (!result2) { allRemovesResolvedPositively = false; }
                     }
-                    bool result2 = adjacencyListNodes[adjNode].Remove(node); //remove node from all adjnodes adjlist
-                    if(!result2) { allRemovesResolvedPositively = false; }
                 }
                 //remove all adj info for nodes and verts for node
                 bool result3 = adjacencyListNodes.Remove(node);
                 bool result4 = adjacencyListEdges.Remove(node);
-                if(!result3 || !result4) { allRemovesResolvedPositively = false; }
+                if (!result3 || !result4) { allRemovesResolvedPositively = false; }
                 return allRemovesResolvedPositively;
             }
             else
@@ -141,7 +147,7 @@ namespace GraphPractice
         /// <param name="node1">start node in connection</param>
         /// <param name="node2">end node in connection</param>
         /// <returns>HashSet containing all vertices that connect from node1 to node2 and vice versa</returns>
-        private HashSet<Edge<T2, T1>> FindAllVerticesBetweenNodes(Node<T1> node1, Node<T1> node2)
+        private HashSet<Edge<T2, T1>> FindAllEdgesBetweenNodes(MyNode<T1> node1, MyNode<T1> node2)
         {
             if(!adjacencyListNodes.ContainsKey(node1)) { throw new NodeNotFoundException(String.Format("{0} doesn't exist in this graph", node1.ToString())); }
             if (!adjacencyListNodes.ContainsKey(node2)) { throw new NodeNotFoundException(String.Format("{0} doesn't exist in this graph", node2.ToString())); }
@@ -175,14 +181,16 @@ namespace GraphPractice
         /// <param name="node1">Starting node</param>
         /// <param name="node2">Node we are "searching" for, method terminates once this node is located</param>
         /// <returns></returns>
-        public Tuple<int, List<Edge<T2, T1>>, List<Node<T1>>> DegreesOfSeperation(Node<T1> node1, Node<T1> node2)
+        public Tuple<int, List<Edge<T2, T1>>, List<MyNode<T1>>> DegreesOfSeperation(MyNode<T1> node1, MyNode<T1> node2)
         {
             if(!adjacencyListNodes.ContainsKey(node1)) 
             {
+                //TODO: When allowing for disconnected sections of the graph, update this error statement
                 throw new NodeNotFoundException(String.Format("Node: {0} not found in graph", node1.ToString()));
             }
             else if(!adjacencyListNodes.ContainsKey(node2))
             {
+                //TODO: When allowing for disconnected sections of the graph, update this error statement
                 throw new NodeNotFoundException(String.Format("Node: {0} not found in graph", node2.ToString()));
             }
             else
@@ -198,27 +206,27 @@ namespace GraphPractice
         /// <param name="node2"></param>
         /// <returns>A tuple containing the degrees of seperation of the two nodes and a detailing the connections between the two nodes.
         /// Returns an "empty" tuple (0, new List) if the connection wasn't found</returns>
-        private Tuple<int, List<Edge<T2, T1>>, List<Node<T1>>> MyDijkstras(Node<T1> node1, Node<T1> node2)
+        private Tuple<int, List<Edge<T2, T1>>, List<MyNode<T1>>> MyDijkstras(MyNode<T1> node1, MyNode<T1> node2)
         {
             // TODO: Implement logic to handle disconnected graphs
             // TODO: Implement logic to handle weighted connections
             // TODO: Implement logic to handle directed connections
             int degreeOfSep = 0;
-            List<Node<T1>> nodesOnPath = new List<Node<T1>>();
+            List<MyNode<T1>> nodesOnPath = new List<MyNode<T1>>();
             List<Edge<T2, T1>> edgesOnPath = new List<Edge<T2, T1>>();
 
-            Dictionary<Node<T1>, int> nodeDistances = new Dictionary<Node<T1>, int>();
-            HashSet<Node<T1>> toBeVisited = new HashSet<Node<T1>>();
-            foreach (Node<T1> node in adjacencyListNodes.Keys)
+            Dictionary<MyNode<T1>, int> nodeDistances = new Dictionary<MyNode<T1>, int>();
+            HashSet<MyNode<T1>> toBeVisited = new HashSet<MyNode<T1>>();
+            foreach (MyNode<T1> node in adjacencyListNodes.Keys)
             {
                 toBeVisited.Add(node);
                 nodeDistances.Add(node, Int32.MaxValue);
             }
             nodeDistances[node1] = 0;
-            Node<T1> previous = node1;
+            MyNode<T1> previous = node1;
             while (toBeVisited.Count > 0)
             {
-                Node<T1> nearestNode = NodeWithShortestDistance(nodeDistances);
+                MyNode<T1> nearestNode = NodeWithShortestDistance(nodeDistances);
                 toBeVisited.Remove(nearestNode);
                 nodesOnPath.Add(nearestNode);
                 degreeOfSep++;
@@ -233,7 +241,7 @@ namespace GraphPractice
                     }
                 }
                 
-                foreach (Node<T1> node in nearestNode.NEIGHBORS)
+                foreach (MyNode<T1> node in nearestNode.NEIGHBORS)
                 {
                     int temp = nodeDistances[nearestNode] + DistanceBetweenNodes(nearestNode, node, false);
                     if(temp < nodeDistances[node])
@@ -246,11 +254,11 @@ namespace GraphPractice
             return Tuple.Create(degreeOfSep, edgesOnPath, nodesOnPath);
         }
 
-        private Node<T1> NodeWithShortestDistance(Dictionary<Node<T1>, int> dict)
+        private MyNode<T1> NodeWithShortestDistance(Dictionary<MyNode<T1>, int> dict)
         {
             int min = Int32.MaxValue;
-            Node<T1> nearestNode = new Node<T1>();
-            foreach(Node<T1> node in dict.Keys)
+            MyNode<T1> nearestNode = new MyNode<T1>();
+            foreach(MyNode<T1> node in dict.Keys)
             {
                 if (dict[node] < min)
                 {
@@ -269,7 +277,7 @@ namespace GraphPractice
         /// <param name="node2"></param>
         /// <param name="weighted"></param>
         /// <returns></returns>
-        private int DistanceBetweenNodes(Node<T1> node1, Node<T1> node2, bool weighted)
+        private int DistanceBetweenNodes(MyNode<T1> node1, MyNode<T1> node2, bool weighted)
         {
             int distance = 0;
             if(!weighted)

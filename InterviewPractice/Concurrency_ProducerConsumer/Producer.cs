@@ -8,6 +8,7 @@ namespace Concurrency_ProducerConsumer
     public class Producer
     {
         private IntBuffer buffer;
+        private int prodRound = 0;
 
         public Producer(IntBuffer _buffer)
         {
@@ -17,11 +18,14 @@ namespace Concurrency_ProducerConsumer
         public void Run()
         {
             Random rand = new Random();
-            while (true)
+            int num = Convert.ToInt32(rand.NextDouble() * 15);
+            bool added = buffer.Add(num);
+            while (added)
             {
-                int num = Convert.ToInt32(rand.NextDouble() * 15);
-                buffer.Add(num);
-                System.Console.WriteLine(String.Format("Produced: {0}", num));
+                prodRound++;
+                Console.WriteLine(String.Format("Production Round: {0}\tProduced: {1}", prodRound, num));
+                num = Convert.ToInt32(rand.NextDouble() * 15);
+                added = buffer.Add(num);
             }
         }
 

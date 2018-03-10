@@ -61,6 +61,11 @@ namespace NodePractice
             VISITED = false;
         }
 
+        /// <summary>
+        /// Takes in avalue and enumerable of neighboring nodes
+        /// </summary>
+        /// <param name="val"></param>
+        /// <param name="neighborNodes"></param>
         public MyNode(T val, IEnumerable<MyNode<T>> neighborNodes)
         {
             VALUE = val;

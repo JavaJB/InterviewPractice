@@ -29,16 +29,28 @@ namespace GraphPractice
         }
 
         /// <summary>
-        /// Creates a graph containing only the provided node
+        /// Creates a graph from a single provided seed node, stores the information on any connected nodes as well
         /// </summary>
-        /// <param name="baseNode"></param>
+        /// <param name="baseNode">Single node to seed generation of a new graph</param>
         public Graph(MyNode<T1> baseNode)
         {
+            nodesInGraph = new HashSet<MyNode<T1>>() { baseNode };
             adjacencyListNodes = new Dictionary<MyNode<T1>, HashSet<MyNode<T1>>>();
             adjacencyListEdges = new Dictionary<MyNode<T1>, HashSet<Edge<T2, T1>>>();
-            nodesInGraph = new HashSet<MyNode<T1>>();
-            adjacencyListNodes.Add(baseNode, baseNode.NEIGHBORS);
-            nodesInGraph.Add(baseNode);
+            if (baseNode.NEIGHBORS.Count == 0)
+            {
+                adjacencyListNodes.Add(baseNode, baseNode.NEIGHBORS); //all nodes carry a default empty hashset of neighbors
+                adjacencyListEdges.Add(baseNode, new HashSet<Edge<T2, T1>>()); //no edges
+            }
+            else
+            {
+                foreach (MyNode<T1> node in baseNode.NEIGHBORS)
+                {
+                    nodesInGraph.Add(node);
+                    adjacencyListNodes.Add(node, node.NEIGHBORS); //only going 1 layer deep right now, recursive method would be nice here
+                    //TODO: add in recursive logic to add all nodes and edges between to graph sets
+                }
+            }
         }
 
         /// <summary>
@@ -162,7 +174,7 @@ namespace GraphPractice
         /// <param name="node1">start node in connection</param>
         /// <param name="node2">end node in connection</param>
         /// <returns>HashSet containing all vertices that connect from node1 to node2 and vice versa</returns>
-        private HashSet<Edge<T2, T1>> FindAllEdgesBetweenNodes(MyNode<T1> node1, MyNode<T1> node2)
+        public HashSet<Edge<T2, T1>> FindAllEdgesBetweenNodes(MyNode<T1> node1, MyNode<T1> node2)
         {
             if(!nodesInGraph.Contains(node1)) { throw new NodeNotFoundException(String.Format("{0} doesn't exist in this graph", node1.ToString())); }
             if(!nodesInGraph.Contains(node2)) { throw new NodeNotFoundException(String.Format("{0} doesn't exist in this graph", node2.ToString())); }
